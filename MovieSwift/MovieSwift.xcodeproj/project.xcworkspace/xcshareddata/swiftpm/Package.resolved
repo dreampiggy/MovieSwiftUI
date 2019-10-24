@@ -2,6 +2,24 @@
   "object": {
     "pins": [
       {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "a42a22ff88ae300d888942ffd801e9744a11027e",
+          "version": "5.2.3"
+        }
+      },
+      {
+        "package": "SDWebImageSwiftUI",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+        "state": {
+          "branch": null,
+          "revision": "c99f5c64748241ead304c9aaa4ad3fb6745b3acd",
+          "version": "0.4.2"
+        }
+      },
+      {
         "package": "SwiftUIFlux",
         "repositoryURL": "https://github.com/Dimillian/SwiftUIFlux.git",
         "state": {

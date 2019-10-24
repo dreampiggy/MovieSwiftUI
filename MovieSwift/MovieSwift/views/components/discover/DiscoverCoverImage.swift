@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct DiscoverPosterStyle: ViewModifier {
     func body(content: Content) -> some View {
@@ -24,25 +25,22 @@ extension View {
 }
 
 struct DiscoverCoverImage : View {
-    @ObservedObject var imageLoader: ImageLoader
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
         
     var body: some View {
         ZStack {
-            if imageLoader.image != nil {
-                Image(uiImage: self.imageLoader.image!)
-                    .resizable()
-                    .renderingMode(.original)
-                    .discoverPosterStyle()
-            } else if imageLoader.path == nil {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .discoverPosterStyle()
-            } else {
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(width: 50, height: 50)
-            }
-            }
+            WebImage(url: url)
+                .resizable()
+                .renderingMode(.original)
+                .discoverPosterStyle()
+        }
     }
 }
 

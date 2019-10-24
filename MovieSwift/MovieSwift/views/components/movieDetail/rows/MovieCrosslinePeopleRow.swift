@@ -37,8 +37,8 @@ struct PeopleRowItem: View {
     var body: some View {
         NavigationLink(destination: PeopleDetail(peopleId: people.id)) {
             VStack(alignment: .center) {
-                PeopleImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: people.profile_path,
-                                                                           size: .cast))
+                PeopleImage(path: people.profile_path,
+                                                                           size: .cast)
                 Text(people.name)
                     .font(.footnote)
                     .foregroundColor(.primary)

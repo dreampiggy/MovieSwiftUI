@@ -22,8 +22,8 @@ struct MovieBackdrop: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            MovieTopBackdropImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: movie.backdrop_path ?? movie.poster_path,
-                                                                                 size: .original),
+            MovieTopBackdropImage(path: movie.backdrop_path ?? movie.poster_path,
+                                                                                 size: .original,
                              isExpanded: $seeImage)
                 .onTapGesture {
                     withAnimation{

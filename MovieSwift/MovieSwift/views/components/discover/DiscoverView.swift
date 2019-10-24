@@ -194,8 +194,8 @@ struct DiscoverView: ConnectedView {
                                 .environmentObject(store)
                         })
                 } else {
-                    DiscoverCoverImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: props.posters[id],
-                                                                                      size: .medium))
+                    DiscoverCoverImage(path: props.posters[id],
+                                                                                      size: .medium)
                         .scaleEffect(1.0 - CGFloat(props.movies.reversed().firstIndex(of: id)!) * 0.03 + CGFloat(self.scaleResistance()))
                         .padding(.bottom, CGFloat(props.movies.reversed().firstIndex(of: id)! * 16) - self.dragResistance())
                         .animation(.spring(response: 0.5, dampingFraction: 0.5, blendDuration: 0))
@@ -218,8 +218,8 @@ struct DiscoverView: ConnectedView {
                               y: reader.frame(in: .local).maxY - reader.safeAreaInsets.bottom - self.bottomSafeInsetFix)
             }
         }
-        .background(FullscreenMoviePosterImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: props.currentMovie?.poster_path,
-                                                                                              size: .original))
+        .background(FullscreenMoviePosterImage(path: props.currentMovie?.poster_path,
+                                                                                              size: .original)
             .allowsHitTesting(false)
             .transition(.opacity)
             .animation(.easeInOut))

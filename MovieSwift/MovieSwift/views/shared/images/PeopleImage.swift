@@ -7,48 +7,47 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct PeopleImage : View {
-    @ObservedObject var imageLoader: ImageLoader
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
     
     var body: some View {
         ZStack {
-            if self.imageLoader.image != nil {
-                Image(uiImage: self.imageLoader.image!)
-                    .resizable()
-                    .renderingMode(.original)
-                    .cornerRadius(10)
-                    .frame(width: 60, height: 90)
-            } else {
-                Rectangle()
-                    .cornerRadius(10)
-                    .frame(width: 60, height: 90)
-                    .foregroundColor(.gray)
-                    .opacity(0.1)
-            }
+            WebImage(url: url)
+                .resizable()
+                .renderingMode(.original)
+                .cornerRadius(10)
+                .frame(width: 60, height: 90)
         }
     }
 }
 
 
 struct BigPeopleImage : View {
-    @ObservedObject var imageLoader: ImageLoader
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
     
     var body: some View {
         ZStack {
-            if self.imageLoader.image != nil {
-                Image(uiImage: self.imageLoader.image!)
-                    .resizable()
-                    .renderingMode(.original)
-                    .cornerRadius(10)
-                    .frame(width: 100, height: 150)
-            } else {
-                Rectangle()
-                    .cornerRadius(10)
-                    .frame(width: 100, height: 150)
-                    .foregroundColor(.gray)
-                    .opacity(0.1)
-            }
+            WebImage(url: url)
+                .resizable()
+                .renderingMode(.original)
+                .cornerRadius(10)
+                .frame(width: 100, height: 150)
         }
     }
 }

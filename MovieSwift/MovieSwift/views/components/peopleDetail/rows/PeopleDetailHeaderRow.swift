@@ -19,8 +19,8 @@ struct PeopleDetailHeaderRow : View {
     
     var body: some View {
         HStack(alignment: .top) {
-            BigPeopleImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: people.profile_path,
-                                                    size: .original))
+            BigPeopleImage(path: people.profile_path,
+                                                    size: .original)
             VStack(alignment: .leading, spacing: 4) {
                 Text("Known for")
                     .titleStyle()

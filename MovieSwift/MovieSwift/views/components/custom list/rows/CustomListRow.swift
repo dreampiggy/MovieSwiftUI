@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SwiftUIFlux
+import SDWebImageSwiftUI
 
 struct CustomListRow : View {
     @EnvironmentObject var store: Store<AppState>
@@ -22,8 +23,8 @@ struct CustomListRow : View {
     
     var body: some View {
         HStack {
-            SmallMoviePosterImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: coverMovie?.poster_path,
-                                                                                 size: .medium))
+            SmallMoviePosterImage(path: coverMovie?.poster_path,
+                                                                                 size: .medium)
             VStack(alignment: .leading, spacing: 2) {
                 Text(list.name).font(.headline).fontWeight(.bold)
                 Text("\(list.movies.count) movies").font(.subheadline).foregroundColor(.secondary)
@@ -34,31 +35,26 @@ struct CustomListRow : View {
 }
 
 struct SmallMoviePosterImage : View {
-    @ObservedObject var imageLoader: ImageLoader
-    @State var isImageLoaded = false
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
     
     var body: some View {
         ZStack {
-            if self.imageLoader.image != nil {
-                Image(uiImage: self.imageLoader.image!)
-                    .resizable()
-                    .renderingMode(.original)
-                    .frame(width: 33, height: 50)
-                    .cornerRadius(3)
-                    .opacity(isImageLoaded ? 1 : 0.1)
-                    .shadow(radius: 2)
-                    .animation(.easeInOut)
-                    .onAppear{
-                        self.isImageLoaded = true
-                }
-            } else {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .frame(width: 33, height: 50)
-                    .cornerRadius(3)
-                    .opacity(0.3)
-            }
-            }
+            WebImage(url: url)
+                .resizable()
+                .renderingMode(.original)
+                .frame(width: 33, height: 50)
+                .cornerRadius(3)
+                .opacity(1)
+                .shadow(radius: 2)
+                .animation(.easeInOut)
+        }
     }
 }
 

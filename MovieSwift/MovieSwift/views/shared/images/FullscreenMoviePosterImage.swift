@@ -7,34 +7,30 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct FullscreenMoviePosterImage: View {
-    @ObservedObject var imageLoader: ImageLoader
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
     
     var body: some View {
         ZStack {
-            if self.imageLoader.image != nil {
-                ZStack {
-                    GeometryReader { geometry in
-                        Image(uiImage: self.imageLoader.image!)
-                            .resizable()
-                            .blur(radius: 50)
-                            .overlay(Color.black.opacity(0.5))
-                            .frame(width: geometry.frame(in: .global).width,
-                                   height: geometry.frame(in: .global).height)
-                    }
-                }.edgesIgnoringSafeArea(.all)
-            } else {
-                ZStack {
-                    GeometryReader { geometry in
-                        Rectangle()
-                            .foregroundColor(Color.black.opacity(0.8))
-                            .frame(width: geometry.frame(in: .global).width,
-                                   height: geometry.frame(in: .global).height)
-                    }
-                }.edgesIgnoringSafeArea(.all)
-  
-            }
+            ZStack {
+                GeometryReader { geometry in
+                    WebImage(url: self.url)
+                        .resizable()
+                        .blur(radius: 50)
+                        .overlay(Color.black.opacity(0.5))
+                        .frame(width: geometry.frame(in: .global).width,
+                               height: geometry.frame(in: .global).height)
+                }
+            }.edgesIgnoringSafeArea(.all)
         }
     }
 }

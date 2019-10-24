@@ -20,8 +20,8 @@ struct MoviePostersRow : View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 32) {
                     ForEach(self.posters) { poster in
-                        MoviePosterImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: poster.file_path,
-                                                                                        size: .medium),
+                        MoviePosterImage(path: poster.file_path,
+                                                                                        size: .medium,
                                          posterSize: .medium)
                             .onTapGesture {
                                 withAnimation {

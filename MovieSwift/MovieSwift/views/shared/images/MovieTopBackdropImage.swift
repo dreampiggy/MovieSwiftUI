@@ -7,10 +7,18 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieTopBackdropImage : View {
-    @ObservedObject var imageLoader: ImageLoader
-    @State var isImageLoaded = false
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
+
     @Binding var isExpanded: Bool
     
     var forceBlur: Bool = false
@@ -34,31 +42,22 @@ struct MovieTopBackdropImage : View {
         
     var body: some View {
         ZStack {
-            if self.imageLoader.image != nil {
-                ZStack {
-                    GeometryReader { geometry in
-                        Image(uiImage: self.imageLoader.image!)
-                            .resizable()
-                            .blur(radius: self.forceBlur ? 50 : self.blurFor(minY: geometry.frame(in: .global).minY),
-                                  opaque: false)
-                            .aspectRatio(contentMode: self.isExpanded ||
-                                self.blurFor(minY: geometry.frame(in: .global).minY) <= 0 ? .fit : .fill)
-                            .opacity(self.isImageLoaded ? 1 : 0)
-                            .animation(.easeInOut)
-                            .onAppear{
-                                self.isImageLoaded = true
-                            }.onTapGesture {
-                                self.isExpanded.toggle()
-                            }
+            ZStack {
+                GeometryReader { geometry in
+                    WebImage(url: self.url)
+                        .resizable()
+                        .blur(radius: self.forceBlur ? 50 : self.blurFor(minY: geometry.frame(in: .global).minY),
+                              opaque: false)
+                        .aspectRatio(contentMode: self.isExpanded ||
+                            self.blurFor(minY: geometry.frame(in: .global).minY) <= 0 ? .fit : .fill)
+                        .opacity(1)
+                        .animation(.easeInOut)
+                        .onTapGesture {
+                            self.isExpanded.toggle()
+                        }
                     }
-                    }
-                    .frame(maxHeight: fill ? 50 : height)
-            } else {
-                Rectangle()
-                    .frame(maxHeight: fill ? 50 : height)
-                    .foregroundColor(.gray)
-                    .opacity(0.1)
-            }
-            }
+                }
+                .frame(maxHeight: fill ? 50 : height)
+        }
     }
 }

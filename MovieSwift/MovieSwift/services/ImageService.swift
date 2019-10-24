@@ -25,17 +25,7 @@ class ImageService {
         }
     }
     
-    enum ImageError: Error {
-        case decodingError
-    }
-    
-    func fetchImage(poster: String, size: Size) -> AnyPublisher<UIImage?, Never> {
-        return URLSession.shared.dataTaskPublisher(for: size.path(poster: poster))
-            .tryMap { (data, response) -> UIImage? in
-                return UIImage(data: data)
-        }.catch { error in
-            return Just(nil)
-        }
-        .eraseToAnyPublisher()
+    struct Placeholder {
+        static let grey = Image("placeholder_grey")
     }
 }

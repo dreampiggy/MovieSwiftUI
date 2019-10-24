@@ -7,28 +7,25 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct BigMoviePosterImage : View {
-    @ObservedObject var imageLoader: ImageLoader
-    @State var isImageLoaded = false
+    var path: String?
+    var size: ImageService.Size
+    var url: URL? {
+        guard let poster = path else {
+            return nil
+        }
+        return size.path(poster: poster)
+    }
     
     var body: some View {
         ZStack(alignment: .center) {
-            if self.imageLoader.image != nil {
-                Image(uiImage: self.imageLoader.image!)
-                    .resizable()
-                    .renderingMode(.original)
-                    .posterStyle(loaded: true, size: .big)
-                    .scaleEffect(self.isImageLoaded ? 1 : 0.6)
-                    .animation(.spring())
-                    .onAppear{
-                        self.isImageLoaded = true
-                }
-            } else {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .posterStyle(loaded: false, size: .big)
-            }
-            }
+            WebImage(url: url)
+                .resizable()
+                .renderingMode(.original)
+                .posterStyle(loaded: true, size: .big)
+                .animation(.spring())
+        }
     }
 }

@@ -18,8 +18,8 @@ struct CustomListCoverRow : View {
     }
     
     var body: some View {
-        MovieBackdropImage(imageLoader: ImageLoaderCache.shared.loaderFor(path: movie.backdrop_path ?? movie.poster_path,
-                                                                          size: .medium))
+        MovieBackdropImage(path: movie.backdrop_path ?? movie.poster_path,
+                                                                          size: .medium)
     }
 }
 
