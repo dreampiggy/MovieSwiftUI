@@ -36,7 +36,7 @@ struct DiscoverCoverImage : View {
         
     var body: some View {
         ZStack {
-            WebImage(url: url)
+            WebImage(url: url, placeholder: ImageService.Placeholder.clear)
                 .resizable()
                 .renderingMode(.original)
                 .discoverPosterStyle()

@@ -46,7 +46,7 @@ struct SmallMoviePosterImage : View {
     
     var body: some View {
         ZStack {
-            WebImage(url: url)
+            WebImage(url: url, placeholder: ImageService.Placeholder.grey)
                 .resizable()
                 .renderingMode(.original)
                 .frame(width: 33, height: 50)

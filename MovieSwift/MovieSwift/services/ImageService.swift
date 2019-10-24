@@ -27,5 +27,6 @@ class ImageService {
     
     struct Placeholder {
         static let grey = Image("placeholder_grey")
+        static let clear = Image("placeholder_clear")
     }
 }

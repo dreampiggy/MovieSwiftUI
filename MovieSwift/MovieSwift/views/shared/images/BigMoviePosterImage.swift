@@ -21,7 +21,7 @@ struct BigMoviePosterImage : View {
     
     var body: some View {
         ZStack(alignment: .center) {
-            WebImage(url: url)
+            WebImage(url: url, placeholder: ImageService.Placeholder.grey)
                 .resizable()
                 .renderingMode(.original)
                 .posterStyle(loaded: true, size: .big)

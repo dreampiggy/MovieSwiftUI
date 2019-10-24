@@ -23,7 +23,7 @@ struct FullscreenMoviePosterImage: View {
         ZStack {
             ZStack {
                 GeometryReader { geometry in
-                    WebImage(url: self.url)
+                    WebImage(url: self.url, placeholder: ImageService.Placeholder.grey)
                         .resizable()
                         .blur(radius: 50)
                         .overlay(Color.black.opacity(0.5))

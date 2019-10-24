@@ -21,7 +21,7 @@ struct PeopleImage : View {
     
     var body: some View {
         ZStack {
-            WebImage(url: url)
+            WebImage(url: url, placeholder: ImageService.Placeholder.grey)
                 .resizable()
                 .renderingMode(.original)
                 .cornerRadius(10)
@@ -43,7 +43,7 @@ struct BigPeopleImage : View {
     
     var body: some View {
         ZStack {
-            WebImage(url: url)
+            WebImage(url: url, placeholder: ImageService.Placeholder.grey)
                 .resizable()
                 .renderingMode(.original)
                 .cornerRadius(10)

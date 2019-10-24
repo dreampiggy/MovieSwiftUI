@@ -26,7 +26,7 @@ struct MovieBackdropImage : View {
     
     var body: some View {
         ZStack {
-            WebImage(url: url)
+            WebImage(url: url, placeholder: ImageService.Placeholder.grey)
                 .resizable()
                 .renderingMode(.original)
                 .frame(width: 300, height: displayMode == .normal ? 168 : 50)

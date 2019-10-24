@@ -44,7 +44,7 @@ struct MovieTopBackdropImage : View {
         ZStack {
             ZStack {
                 GeometryReader { geometry in
-                    WebImage(url: self.url)
+                    WebImage(url: self.url, placeholder: ImageService.Placeholder.grey)
                         .resizable()
                         .blur(radius: self.forceBlur ? 50 : self.blurFor(minY: geometry.frame(in: .global).minY),
                               opaque: false)
